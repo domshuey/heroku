@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Stupid Twitter {% endblock %}
+
+{% block content %}
+
+
+<h1 class="display-1 text-center">Stupid Twitter</h1>
+
+<div class="container mt-5 bg-info text-white text-center pb-3 pt-3">
+    <h2 class="display-3 pb-5">Some tweets from our users..</h2>
+    {% for tweet in tweets %}
+    <p class="mt-4">"{{tweet.text}}" from <b>{{tweet.user.username}}</b></p>
+    {% endfor %}
+</div>
+{% endblock %}

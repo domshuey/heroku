@@ -1,0 +1,51 @@
+{% extends 'home.html' %}
+
+{% block title %} Twitt3r {% endblock %}
+
+{% block content %}
+<div class="container">
+<h1 class="display-2">Welcome to Twitt3r!</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    {% for field in form 
+        if field.widget.input_type != 'hidden' %}
+
+    <p>
+        {{field.label}}
+        {{field(class_='form-control')}}
+
+        {% for err in field.errors %}
+        {{err}}
+        {% endfor %}
+    </p>
+    {% endfor %}
+
+    <button class="btn btn-primary" type="submit">Tweet</button>
+</form>
+<!-- <div class="container">
+    {% for msg in get_flashed_messages() %}
+    <div class='success alert-success'>
+        {{msg}}
+    </div>
+    {% endfor %}
+</div> -->
+<ul>
+    {% for tweet in tweets %}
+    <div class="card my-3">
+        <div class="card-body">
+            <h4 class='card-title'>{{tweet.user.username}}</h4>
+            <p class="card-subtitle text-muted">Date</p>
+            <p class="card-text">{{tweet.text}}</p>
+            {% if session['user_id'] == tweet.user.id %}
+            <form action="/tweets/{{tweet.id}}"  style="display: inline" method="POST">
+                <button class='btn btn-sm btn-light text-danger'>Delete</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</ul>
+</div>
+
+{% endblock %}
